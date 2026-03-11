@@ -1,10 +1,8 @@
-# Flowers competition Leaderboard
+# 🌻 Flowers Competition Leaderboard
 
-*Last updated: 2026-03-11 11:34 UTC*
-
-**Total submissions: 1** | **Participants: 1**
+*Last updated: 2026-03-11 12:13 UTC*
 
 | Rank | Participant | Accuracy | F1 (macro) | Date |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | CCSPOET | 61.21% | 58.84% | 2026-03-11 |
-
+| 🥇 | Charlotte&Sara | 63.00% | 62.04% | 2026-03-11 |
+| 2 | CCSPOET | 61.21% | 58.84% | 2026-03-11 |
