@@ -2,8 +2,8 @@
     {
         "rank": 1,
         "participant": "CCSPOET",
-        "accuracy": "62.90%",
-        "f1_macro": "61.20%",
+        "accuracy": "61.20%",
+        "f1_macro": "58.84%",
         "date": "2026-03-11"
     }
 ]
