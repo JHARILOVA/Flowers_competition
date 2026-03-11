@@ -3,19 +3,21 @@ name: Update Leaderboard
 on:
   push:
     paths:
-      - 'scores.json'  # This trigger only runs when you edit your scores
+      - 'scores.json'
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # This fixes the "exit code 128" permission issue
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-data: '3.10'
+          python-version: '3.10' # Fixed the 'python-data' typo here
 
       - name: Run update script
         run: python leaderboard/update.py
