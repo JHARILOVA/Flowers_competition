@@ -6,12 +6,8 @@
 
 
 
-🏆 **Current Standings**
+🏆 Leaderboard
 
-| Rank | Participant | Accuracy | F1 (Macro) | Status |
-|------|-------------|----------|------------|--------|
-| 🥇 | Charlotte & Sara | 63.00% | 62.04% | Winner |
-| 🥈 | CCSPOET | 61.21% | 58.84% | Active |
 
 
 
