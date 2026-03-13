@@ -80,3 +80,27 @@ def update_leaderboard(username, f1, acc):
 if __name__ == "__main__":
     user = sys.argv[1] if len(sys.argv) > 1 else "Unknown"
     run_grading(user)
+
+def update_readme():
+    with open('scores.json', 'r') as f:
+        scores = json.load(f)
+    
+    # Create the Markdown table header
+    table = "| Rank | User | F1-Macro | Accuracy |\n| :--- | :--- | :--- | :--- |\n"
+    
+    for i, s in enumerate(scores, 1):
+        table += f"| {i} | {s['user']} | {s['f1_macro']} | {s['accuracy']} |\n"
+    
+    with open('README.md', 'r') as f:
+        readme = f.read()
+
+    # This looks for a special marker in your README to swap the table
+    marker = "## 🏆 Leaderboard"
+    if marker in readme:
+        parts = readme.split(marker)
+        # Keep everything before the marker, then add the marker and the new table
+        new_readme = parts[0] + marker + "\n\n" + table
+        with open('README.md', 'w') as f:
+            f.write(new_readme)
+
+# Call this at the very end of your run_grading function
