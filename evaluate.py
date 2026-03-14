@@ -4,40 +4,35 @@ import sys
 import json
 import pandas as pd
 from sklearn.metrics import f1_score, accuracy_score
-
 def update_readme():
-    """Reads scores.json and updates the README.md table automatically."""
-    if not os.path.exists('scores.json'):
+    if not os.path.exists('scores.json') or not os.path.exists('README.md'):
         return
         
     with open('scores.json', 'r') as f:
         scores = json.load(f)
     
-    # Create the Markdown table header
+    # Génération du tableau Markdown
     table = "| Rank | User | F1-Macro | Accuracy |\n| :--- | :--- | :--- | :--- |\n"
-    
     for i, s in enumerate(scores, 1):
         table += f"| {i} | {s['user']} | {s['f1_macro']} | {s['accuracy']} |\n"
     
-    if not os.path.exists('README.md'):
-        print("Error: README.md not found.")
-        return
-
     with open('README.md', 'r') as f:
-        readme = f.read()
+        content = f.read()
 
-    # Look for the marker to swap the table
-    marker = "## 🏆 Leaderboard"
-    if marker in readme:
-        parts = readme.split(marker)
-        # We take everything before the marker, then re-add the marker and the new table
-        new_readme = parts[0] + marker + "\n\n" + table
+    # Délimiteurs pour isoler le tableau
+    start_marker = "## 🏆 Leaderboard"
+    end_marker = "📁 **Repository Structure**"
+
+    if start_marker in content and end_marker in content:
+        parts_before = content.split(start_marker)[0]
+        parts_after = content.split(end_marker)[1]
+        
+        # On reconstruit le README en insérant le tableau entre les deux
+        new_readme = parts_before + start_marker + "\n\n" + table + "\n\n" + end_marker + parts_after
+        
         with open('README.md', 'w') as f:
             f.write(new_readme)
-        print("README.md leaderboard updated!")
-    else:
-        print(f"Warning: Marker '{marker}' not found in README.md")
-
+        print("README updated successfully!")
 def update_leaderboard(username, f1, acc):
     """Updates the JSON database and sorts by performance."""
     scores_file = 'scores.json'
