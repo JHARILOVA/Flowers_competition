@@ -68,10 +68,8 @@ def run_grading(student_username):
     ]
     
     print(f"Current working directory: {os.getcwd()}")
-    print("Searching for submission.csv...")
-    print("All CSV files found:")
-    os.system("find . -name '*.csv' -type f")
-
+    print("Looking for submission.csv...")
+    
     sub_df = None
     for path in possible_paths:
         if os.path.exists(path):
@@ -80,7 +78,9 @@ def run_grading(student_username):
             break
     
     if sub_df is None:
-        print("Error: submission.csv not found in any expected location.")
+        print("Error: submission.csv not found in any location.")
+        print("All CSV files on runner:")
+        os.system("find . -name '*.csv' -type f")
         sys.exit(1)
 
     # 3. Matching Logic
