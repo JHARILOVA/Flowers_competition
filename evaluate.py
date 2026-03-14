@@ -79,10 +79,16 @@ def run_grading(student_username):
     except Exception as e:
         print(f"Error reading submission.csv: {e}")
         sys.exit(1)
-    # --- AJOUTE CES DEUX LIGNES ICI POUR FIXER L'ERREUR ---
-    truth_df['id'] = truth_df['id'].astype(str)
-    sub_df['id'] = sub_df['id'].astype(str)
-
+# --- CORRECTION POUR LE MATCHING ---
+    # On s'assure que tout est en texte pour éviter l'erreur de tout à l'heure
+    truth_df['original_filename'] = truth_df['original_filename'].astype(str)
+    
+    # Si l'étudiant a mis les noms de fichiers dans la colonne 'id', 
+    # on renomme sa colonne 'id' en 'original_filename'
+    if 'id' in sub_df.columns and 'Image_' in str(sub_df['id'].iloc[0]):
+        sub_df = sub_df.rename(columns={'id': 'original_filename'})
+    
+    sub_df['original_filename'] = sub_df['original_filename'].astype(str)
 
     # 3. Smart Matching Logic
     if 'original_filename' in sub_df.columns:
