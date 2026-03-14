@@ -1,7 +1,7 @@
 [
     {
         "user": "ahmedssow-ship-it",
-        "f1_macro": NaN,
-        "accuracy": NaN
+        "f1_macro": 0.6229,
+        "accuracy": 0.6407
     }
 ]
