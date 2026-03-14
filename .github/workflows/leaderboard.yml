@@ -7,9 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    defaults:
-      run:
-        working-directory: ${{ github.workspace }}
     steps:
       - name: Checkout Main
         uses: actions/checkout@v3
@@ -24,16 +21,8 @@ jobs:
 
       - name: Load Student Data
         run: |
-          if [ -f "student_submission/submission.csv" ]; then
-            mkdir -p submissions
-            cp student_submission/submission.csv ./submissions/submission.csv
-            echo "Submission found and loaded."
-            ls -la submissions/
-          else
-            echo "Error: submission.csv not found in the student's PR."
-            find student_submission/ -type f
-            exit 1
-          fi
+          mkdir -p submissions
+          cp student_submission/submission.csv ./submissions/submission.csv
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -46,14 +35,7 @@ jobs:
       - name: Run Grading
         env:
           FLOWER_ANSWERS: ${{ secrets.FLOWER_ANSWERS }}
-        run: |
-          echo "=== Working directory ==="
-          pwd
-          echo "=== Files ==="
-          ls -la
-          echo "=== Submissions folder ==="
-          ls -la submissions/
-          python evaluate.py ${{ github.event.pull_request.user.login }}
+        run: python evaluate.py ${{ github.event.pull_request.user.login }}
 
       - name: Push Results
         run: |
